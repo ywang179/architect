@@ -34,111 +34,75 @@ Pitchfork’s top mentions:
 This distribution reveals Billboard’s loyalty to chart-topping consistency, while Pitchfork spreads attention across more artists, reflecting evolving editorial interests.
 
 ### Billboard V.S. Pitchfork:
-Overall
+
+#### Overall
+
 ![Alt Text](docs/pitchfork_2015_2024.png)
 ![Alt Text](docs/billboard_2015_2024.png)
 
-2015
+
+#### 2015
+
 ![Alt Text](docs/pitchfork_2015.png)
 ![Alt Text](docs/billboard_2015.png)
 
-2016
+
+#### 2016
+
 ![Alt Text](docs/pitchfork_2016.png)
 ![Alt Text](docs/billboard_2016.png)
 
-2017
+
+#### 2017
+
 ![Alt Text](docs/pitchfork_2017.png)
 ![Alt Text](docs/billboard_2017.png)
 
-2018
+
+#### 2018
+
 ![Alt Text](docs/pitchfork_2018.png)
 ![Alt Text](docs/billboard_2018.png)
 
-2019
+
+#### 2019
+
 ![Alt Text](docs/pitchfork_2019.png)
 ![Alt Text](docs/billboard_2019.png)
 
-2020
+
+#### 2020
+
 ![Alt Text](docs/pitchfork_2020.png)
 ![Alt Text](docs/billboard_2020.png)
 
-2021
+
+#### 2021
+
 ![Alt Text](docs/pitchfork_2021.png)
 ![Alt Text](docs/billboard_2021.png)
 
-2022
+
+#### 2022
+
 ![Alt Text](docs/pitchfork_2022.png)
 ![Alt Text](docs/billboard_2022.png)
 
-2023
+
+#### 2023
+
 ![Alt Text](docs/pitchfork_2023.png)
 ![Alt Text](docs/billboard_2023.png)
 
-2024
+
+#### 2024
+
 ![Alt Text](docs/pitchfork_2024.png)
 ![Alt Text](docs/billboard_2024.png)
 
 
-# songs_in_both_table.py
-
-import pandas as pd
-import plotly.graph_objects as go
-from IPython.display import display, HTML
-
-# Load data
-df = pd.read_csv("merged_2015_2024_with_wiki_images.csv")
-
-# Filter songs with both Pitchfork and Billboard ranks
-songs_in_both = df.dropna(subset=['pitchfork_rank', 'billboard_rank']).copy()
-songs_in_both['pitchfork_rank'] = songs_in_both['pitchfork_rank'].astype(int)
-songs_in_both['billboard_rank'] = songs_in_both['billboard_rank'].astype(int)
-songs_in_both['average_rank'] = ((songs_in_both['pitchfork_rank'] + songs_in_both['billboard_rank']) / 2).round(1)
-
-result_df = songs_in_both[['year', 'artists', 'song', 'pitchfork_rank', 'billboard_rank', 'average_rank', 'image']]
-
-# Generate HTML with hoverable image preview
-html = '''
-<style>
-  body { background-color: #000; color: #fff; font-family: 'Courier New', monospace; }
-  table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); }
-  th, td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); text-align: left; font-family: 'Courier New', monospace; }
-  th { background: rgba(255,255,255,0.2); }
-  tr:hover { background-color: rgba(255, 255, 255, 0.3); }
-  .preview-img { position: absolute; left: calc(100% - 240px); top: 0; display: none; width: 200px; border-radius: 12px; box-shadow: 0 0 20px rgba(255,255,255,0.3); z-index: 100; }
-</style>
-<h2>Songs Ranked on Both Pitchfork and Billboard</h2>
-<table id="rank-table">
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Artist</th>
-      <th>Song</th>
-      <th>Pitchfork Rank</th>
-      <th>Billboard Rank</th>
-      <th>Average Rank</th>
-    </tr>
-  </thead>
-  <tbody>
-'''
-
-for i, row in result_df.iterrows():
-    image_url = row['image'].replace('"', '')
-    html += f'''
-    <tr onmousemove="const img=document.getElementById('hover-img'); img.src='{image_url}'; img.style.top=event.clientY+'px'; img.style.display='block';" 
-        onmouseleave="document.getElementById('hover-img').style.display='none';">
-      <td>{row['year']}</td>
-      <td>{row['artists']}</td>
-      <td>{row['song']}</td>
-      <td>{row['pitchfork_rank']}</td>
-      <td>{row['billboard_rank']}</td>
-      <td>{row['average_rank']}</td>
-    </tr>
-    '''
-
-html += '''</tbody></table><img id="hover-img" class="preview-img" />'''
-
-# Display the interactive table
-display(HTML(html))
+#### INTERSECTION
+![Alt Text](docs/table.png)
 
 
 
